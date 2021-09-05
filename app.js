@@ -16,6 +16,8 @@ function loadEventListeners() {
   taskList.addEventListener("click", removeTask);
   // Clear task event
   clearBtn.addEventListener("click", clearTasks);
+  // Filter tasks event
+  filter.addEventListener("keyup", filterTasks);
 }
 
 // Add Task
@@ -38,7 +40,7 @@ function addTask(e) {
   link.innerHTML = '<i class="fa fa-minus-circle"></i>';
   // Append the link to li
   li.appendChild(link);
-  console.log(link);
+  // console.log(link);
 
   // Append li to ul
   taskList.appendChild(li);
@@ -66,4 +68,19 @@ function clearTasks() {
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
+}
+
+// Filter Tasks
+function filterTasks(e) {
+  const text = e.target.value.toLowerCase();
+
+  // console.log(text);
+  document.querySelectorAll(".collection-item").forEach(function (task) {
+    const item = task.firstChild.textContent;
+    if (item.toLowerCase().indexOf(text) != -1) {
+      task.style.display = "block";
+    } else {
+      task.style.display = "none";
+    }
+  });
 }
